@@ -62,15 +62,24 @@ clean<-function(){
     training_data$set<-"training"
     
     # we merge all data into a dataframe, and point 1 is done (maybe not
-    # necessary but we write this data to a file ) 
+    # necessary but we could write this data to a file ) 
     
     all_data<-rbind(test_data,training_data)
     rm(list=setdiff(ls(),"all_data"))
-    if(!file.exists("procData")){
-        dir.create("procData")
-    }
-    
+
+#    if(!file.exists("procData")){
+#        dir.create("procData")
+#    }
+#    
 #    output1<-"./procData/P1.txt"
-#    write.table(all_data,file=output1)
+#    write.table(all_data,file=output1,row.names=F)
+ 
+
+    #Now we subset the columns that have values for means and for standar deviations
+     
     
+    columnas_sel<-grep("mean\\(\\)|std\\(\\)",names(all_data))
+    sel_data<-all_data[,columnas_sel] 
+    
+    #here sel_data is the data as wanted in P2
 }
