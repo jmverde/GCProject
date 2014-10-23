@@ -1,5 +1,7 @@
 clean<-function(){
 
+    #Load  packages 
+    library(plyr)
     
     #lets start loading test files and putting them into a df with their variable names
     
@@ -107,8 +109,6 @@ clean<-function(){
     #Now we start adressing the fourth point, dataset labeling
     #first of all we adress the typo of "BodyBody" 
     
-    debug<-names(sel_data)
-    
     names(sel_data)<-gsub("BodyBody","Body",names(sel_data))
     
     #then we change the t or f for time domain and frecuency domain, no
@@ -150,5 +150,20 @@ clean<-function(){
     
     # and we have the point 4 done (personally y would have prefered underscores
     # of dashes for readibility but rules for variables dont allow for them)
+    
+    # lets start the P5, is trivial using ddply from plyr
+    
+    final_data<-ddply(sel_data, .(activity,subject),numcolwise(mean))
+    
+    # we save to a file the final data 
+    
+       if(!file.exists("procData")){
+           dir.create("procData")
+       }
+       
+       output1<-"./procData/finalData.txt"
+       write.table(all_data,file=output1,row.names=F)
+    
+    final_data
     
 }
