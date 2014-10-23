@@ -75,11 +75,80 @@ clean<-function(){
 #    write.table(all_data,file=output1,row.names=F)
  
 
-    #Now we subset the columns that have values for means and for standar deviations
-     
+    #Now we subset the columns that have values for means and for standar  deviations
+     # we also mantain columns one and two since those are testsubject and test
     
     columnas_sel<-grep("mean\\(\\)|std\\(\\)",names(all_data))
-    sel_data<-all_data[,columnas_sel] 
+    sel_data<-all_data[,c(1,2,columnas_sel)] 
     
     #here sel_data is the data as wanted in P2
+    
+    #For P3 we have just to change the labels for a correct name for the
+    #activity we read them from the file where stored
+    
+    activity_names_file<-"./rawData/activity_labels.txt"
+    activity_names<-read.table(activity_names_file)
+    
+    #we convert those names to the asked format, transforming to lower case and
+    #removing underscores
+    
+    activity_names$V2<-tolower(activity_names$V2)
+    activity_names$V2<-gsub("_","",activity_names$V2)
+    
+    #its realy easy to change the names 
+    
+    
+    sel_data$activityLabel<-activity_names[sel_data$activityLabel,2] 
+    
+    #since those are codes no more we change the name of the variable
+    names(sel_data)[2]<-"activity"
+    
+    
+    #Now we start adressing the fourth point, dataset labeling
+    #first of all we adress the typo of "BodyBody" 
+    
+    debug<-names(sel_data)
+    
+    names(sel_data)<-gsub("BodyBody","Body",names(sel_data))
+    
+    #then we change the t or f for time domain and frecuency domain, no
+    #separator character is included as instructed
+
+    names(sel_data)<-gsub("^t","timedomain",names(sel_data))
+    names(sel_data)<-gsub("^f","frecuencydomain",names(sel_data))
+    
+    # Body and gravity components are shelf explainable, so we just change them
+    # for their lowercased counterparts
+    
+    names(sel_data)<-gsub("Body","body",names(sel_data))
+    names(sel_data)<-gsub("Gravity","gravity",names(sel_data))
+    
+    # Acc is changed for "acceleration" and "Gyro" for angularvelocity since
+    # those are the magnitudes measured
+    
+    names(sel_data)<-gsub("Acc","acceleration",names(sel_data))
+    names(sel_data)<-gsub("Gyro","angularvelocity",names(sel_data))
+    
+    # Jerk is self explanatory and changed for jerk, 
+    
+    names(sel_data)<-gsub("Jerk","jerk",names(sel_data))
+    
+    # Mag stands for magnitude an so is changed 
+    
+    names(sel_data)<-gsub("Mag","magnitude",names(sel_data))
+    
+    #change "-mean()" for "mean" and "-std()" for standarddeviation 
+    
+    names(sel_data)<-gsub("\\-mean\\(\\)","mean",names(sel_data))
+    names(sel_data)<-gsub("\\-std\\(\\)","standarddeviation",names(sel_data))
+    
+    #finaly we change the axis of measure X Y Z for xyzaxis
+    
+    names(sel_data)<-gsub("\\-X","xaxis",names(sel_data))
+    names(sel_data)<-gsub("\\-Y","yaxis",names(sel_data))
+    names(sel_data)<-gsub("\\-Z","zaxis",names(sel_data)) 
+    
+    # and we have the point 4 done (personally y would have prefered underscores
+    # of dashes for readibility but rules for variables dont allow for them)
+    
 }
