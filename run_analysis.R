@@ -162,7 +162,7 @@ clean<-function(){
        }
        
        output1<-"./procData/finalData.txt"
-       write.table(all_data,file=output1,row.names=F)
+       write.table(final_data,file=output1,row.names=F)
     
     final_data
     
