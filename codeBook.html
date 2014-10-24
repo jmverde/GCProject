@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Raw data description</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Raw data description</h1>
+
+<p>The original data contains signal data for the Samsung Galaxy Cellphone extracted from its accelerometer and gyroscope, analyzing the signals from the device when test subjects between 19 and 48 years old were performing certain activities. This data was then transformed into different signal measures.A full description of the data is avaiblable on the original files in the rawData directory.</p>
+
+<p>The data can be accesed from  <a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a>, and for this course is avalaible also from  <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a>. </p>
+
+<p>Data used in this exercice was obtained from the second link at 22/10/2014 16:03 (GTM+1)</p>
+
+<h1>Transformations performed</h1>
+
+<ol>
+<li><p>Subject identification for test set extracted from /test/subject_test.txt</p></li>
+<li><p>Measurement data for test set extracted from /test/X_test.txt </p></li>
+<li><p>Activity code for test set extracted from /test/Y_test.txt </p></li>
+<li><p>Names for measurements in X_test extracted from features.txt are applyed to the variables readen from X_test</p></li>
+<li><p>Subject, activity code and measurements binded into a data frame</p></li>
+<li><p>Subject identification for training set extracted from /training/subject_test.txt</p></li>
+<li><p>Measurement data for training set extracted from /trainingt/X_training.txt </p></li>
+<li><p>Activity code for training set extracted from /training/Y_training.txt </p></li>
+<li><p>Names for measurements in X_training extracted from features.txt are applyed to the variables readen from X_training</p></li>
+<li><p>The two data sets are binded one after another since measurement variables are in the same order in both data frames</p></li>
+<li><p>Variables with &ldquo;mean()&rdquo; or &ldquo;std()&rdquo; in their names are subsetd and saved into a new data frame, discarding the old one</p></li>
+<li><p>Names for activities extractes from activity_labels.txt</p></li>
+<li><p>Names for activities formated to lowercase and underscores removed</p></li>
+<li><p>Activity codes substituted for the  correspondig value</p></li>
+<li><p>&ldquo;BodyBody&rdquo; changed in variable names to &ldquo;Body&rdquo; to correct a typo</p></li>
+<li><p>Names of variables cleaned aplying the following transformations</p>
+
+<ul>
+<li>Replace leading &ldquo;t&rdquo; with  &ldquo;timedomain&rdquo; </li>
+<li>Replace leading &ldquo;f&rdquo; with &ldquo;frecuencydomain&rdquo;</li>
+<li>Replace &ldquo;Body&rdquo; with &ldquo;body&rdquo;</li>
+<li>Replace &ldquo;Gravity&rdquo; with &ldquo;gravity&rdquo;</li>
+<li>Replace &ldquo;ACC&rdquo; with &ldquo;acceleration&rdquo;</li>
+<li>Replace &ldquo;Gyro&rdquo; with &ldquo;angularvelocity&rdquo;</li>
+<li>Replace &ldquo;Jerk&rdquo; with &ldquo;jerk&rdquo;</li>
+<li>Replace &ldquo;Mag&rdquo; with &ldquo;magnitude&rdquo;</li>
+<li>Replace &ldquo;-mean()&rdquo; with &ldquo;mean&rdquo;</li>
+<li>Replace &ldquo;-std()&rdquo; with &ldquo;standarddeviation&rdquo;</li>
+<li>Replace &ldquo;-X&rdquo; with &ldquo;xaxis&rdquo;</li>
+<li>Replace &ldquo;-Y&rdquo; with &ldquo;yaxis&rdquo;</li>
+<li>Replace &ldquo;-Z&rdquo; with &ldquo;zaxis&rdquo;</li>
+</ul></li>
+<li><p>Summary dataset created, calculating the mean of te variables in the dataset, subsetting by the subject and the activity. The resulting set has a row for every combination of subject and activity and records the mean of the refered variables  </p></li>
+<li><p>Summary dataset saved to /procData/finalData.txt with a first row including variable names</p></li>
+</ol>
+
+<h1>Variable description</h1>
+
+<p>The resulting dataset contains 180 rows and 68 columns. It can be easily readed to a data frame using read.table(output1,header = T) </p>
+
+<p>Each row represents the means of all the observations refered to means or standard deviations on the original Data from siemens for each combination of subject and activity. Test and training data were merged, and considered the same for the creation of this dataset. 
+All columns, except Activity and Subject, are signal data normalized between [-1,1], so all those values are adimensional.
+Activity records the id of the subject of this measurement so it has no units
+The activity been performed are recorded in a literal for. </p>
+
+<p>Names of variables should be shelf explained, but for reference they are now listed</p>
+
+<ol>
+<li><p>&ldquo;activity&rdquo; : Description of the activity being carried</p></li>
+<li><p>&ldquo;subject&rdquo;  : Numeric ID for the studied subject </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationmeanxaxis&rdquo; : Mean of means of body accelerations along X axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationmeanyaxis&rdquo; : Mean of means of body accelerations along Y axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyaccelerationmeanzaxis&rdquo; : Mean of means of body accelerations along Z axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyaccelerationstandarddeviationxaxis&rdquo; : Mean of standard deviations of body accelerations along X axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyaccelerationstandarddeviationyaxis&rdquo; : Mean of standard deviations of body accelerations along Y axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationstandarddeviationzaxis&rdquo; : Mean of standard deviations of body accelerations along Z axis measured in time domain </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationmeanxaxis&rdquo; : Mean of means of gravity acceleration along X axis measured in time domain </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationmeanyaxis&rdquo; : Mean of means of gravity acceleration along Y axis measured in time domain  </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationmeanzaxis&rdquo; : Mean of means of gravity acceleration along Z axis measured in time domain</p></li>
+<li><p>&ldquo;timedomaingravityaccelerationstandarddeviationxaxis&rdquo; : Mean of standard deviations of gravity acceleration along X axis measured in time domain </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationstandarddeviationyaxis&rdquo; : Mean of standard deviations of gravity acceleration along Y axis measured in time domain  </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationstandarddeviationzaxis&rdquo; : Mean of standard deviations of gravity acceleration along Z axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkmeanxaxis&rdquo; : Mean of means of body accelerations jerk along X axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkmeanyaxis&rdquo; : Mean of means of body accelerations jerk along Y axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkmeanzaxis&rdquo; : Mean of means of body accelerations jerk along Z axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkstandarddeviationxaxis&rdquo; : Mean of standard deviations of body accelerations jerk along X axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkstandarddeviationyaxis&rdquo; : Mean of standard deviations of body accelerations jerk along Y axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkstandarddeviationzaxis&rdquo; : Mean of standard deviations of body accelerations jerk along Z axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitymeanxaxis&rdquo; : Mean of means of body angular velocity along X axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitymeanyaxis&rdquo; : Mean of means of body angular velocity along Y axis measured in time domain  </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitymeanzaxis&rdquo; : Mean of means of body angular velocity along Z axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitystandarddeviationxaxis&rdquo; : Mean of standard deviations of body angular velocity along X axis measured in time domain   </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitystandarddeviationyaxis&rdquo; : Mean of standard deviations of body angular velocity along Y axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitystandarddeviationzaxis&rdquo; : Mean of standard deviations of body angular velocity along Z axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkmeanxaxis&rdquo; : Mean of means of body angular velocity jerk along X axis measured in time domain  </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkmeanyaxis&rdquo; : Mean of means of body angular velocity jerk along Y axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkmeanzaxis&rdquo; : Mean of means of body angular velocity jerk along Z axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkstandarddeviationxaxis&rdquo; : Mean of standard deviations of body angular velocity jerk along X axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkstandarddeviationyaxis&rdquo; : Mean of standard deviations of body angular velocity jerk along Y axis measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkstandarddeviationzaxis&rdquo; : Mean of standard deviations of  body angular velocity jerk along Z axis measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyaccelerationmagnitudemean&rdquo; : Mean of means of body accelerations magnitude measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationmagnitudestandarddeviation&rdquo; : Mean of standard deviations of body accelerations magnitude measured in time domain </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationmagnitudemean&rdquo; : Mean of means of gravity acceleration magnitude measured in time domain </p></li>
+<li><p>&ldquo;timedomaingravityaccelerationmagnitudestandarddeviation&rdquo; : Mean of standard deviations of gravity acceleration magnitude measured in time domain   </p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkmagnitudemean&rdquo; : Mean of means of body accelerations jerk magnitude measured in time domain</p></li>
+<li><p>&ldquo;timedomainbodyaccelerationjerkmagnitudestandarddeviation&rdquo; : Mean of standard deviations of body accelerations jerk magnitude measured in time domain       </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitymagnitudemean&rdquo; : Mean of means of body angular velocity magnitude measured in time domain  </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocitymagnitudestandarddeviation&rdquo; : Mean of standard deviations of body angular velocity magnitude measured in time domain       </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkmagnitudemean&rdquo; : Mean of means of body angular velocity jerk magnitude measured in time domain </p></li>
+<li><p>&ldquo;timedomainbodyangularvelocityjerkmagnitudestandarddeviation&rdquo; : Mean of standard deviations of body angular velocity magnitude measured in time domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationmeanxaxis&rdquo; : Mean of means of body accelerations along X axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationmeanyaxis&rdquo; : Mean of means of body accelerations along Y axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationmeanzaxis&rdquo; : Mean of means of body accelerations along Z axis transformed to frecuency domain  </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationstandarddeviationxaxis&rdquo; : Mean of standard deviations of body accelerations along X axis transformed to frecuency domain  </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationstandarddeviationyaxis&rdquo; : Mean of standard deviations of body accelerations along Y axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationstandarddeviationzaxis&rdquo; : Mean of standard deviations of body accelerations along Z axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkmeanxaxis&rdquo; : Mean of means of body accelerations jerk along X axis transformed to frecuency domain</p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkmeanyaxis&rdquo; : Mean of means of body accelerations jerk along Y axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkmeanzaxis&rdquo; : Mean of means of body accelerations jerk along Z axis transformed to frecuency domain</p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkstandarddeviationxaxis&rdquo; : Mean of standard deviations of body accelerations jerk along X axis transformed to frecuency domain   </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkstandarddeviationyaxis&rdquo; : Mean of standard deviations of body accelerations jerk along Y axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkstandarddeviationzaxis&rdquo; : Mean of standard deviations of body accelerations jerk along Z axis transformed to frecuency domain   </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitymeanxaxis&rdquo; : Mean of means of body angular velocity along X axis transformed to frecuency domain</p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitymeanyaxis&rdquo; : Mean of means of body angular velocity along Y axis  transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitymeanzaxis&rdquo; : Mean of means of body angular velocity along Z axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitystandarddeviationxaxis&rdquo;  : Mean of standard deviations of body angular velocity along X axis transformed to frecuency domain  </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitystandarddeviationyaxis&rdquo;  : Mean of standard deviations of body angular velocity along Y axis transformed to frecuency domain  </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitystandarddeviationzaxis&rdquo;  : Mean of standard deviations of body angular velocity along Z axis transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationmagnitudemean&rdquo; : Mean of means of body accelerations magnitude transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationmagnitudestandarddeviation&rdquo; : Mean of standard deviations of body accelerations magnitude transformed to frecuency domain   </p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkmagnitudemean&rdquo; : Mean of means of body accelerations jerk magnitude transformed to frecuency domain</p></li>
+<li><p>&ldquo;frecuencydomainbodyaccelerationjerkmagnitudestandarddeviation&rdquo; : Mean of standard deviations of body accelerations jerk magnitude transformed to frecuency domain      </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitymagnitudemean&rdquo; : Mean of means of body angular velocity magnitude transformed to frecuency domain  </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocitymagnitudestandarddeviation&rdquo; : Mean of standard deviations of body angular velocity magnitude transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocityjerkmagnitudemean&rdquo; : Mean of means of body angular velocity jerk magnitude transformed to frecuency domain </p></li>
+<li><p>&ldquo;frecuencydomainbodyangularvelocityjerkmagnitudestandarddeviation&rdquo; : Mean of standard deviations of body angular velocity jerk magnitude transformed to frecuency domain</p></li>
+</ol>
+
+</body>
+
+</html>
+
